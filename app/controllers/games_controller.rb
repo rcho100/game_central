@@ -15,4 +15,16 @@ class GamesController < ApplicationController
       redirect to "/login"
     end
   end
+
+  post '/games' do
+    if params[:name] == "" || params[:genre] == "" || params[:system] == "" || params[:reason] == ""
+      redirect to "/games/new"
+    else
+      @game = Game.create(params)
+      @user = current_user
+      @user.games << @game
+      redirect to "/games/#{@game.id}"
+    end
+   
+  end
 end
