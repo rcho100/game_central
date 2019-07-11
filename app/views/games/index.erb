@@ -1,0 +1,6 @@
+<% @games.each do |game| %>
+  <h3><%= game.name %></h3>
+  <p>System: <%= game.system %> Genre: <%= game.genre %></p>
+  <p>Reason for listing:</p>
+  <p><%= game.reason %></p>
+<% end %>
