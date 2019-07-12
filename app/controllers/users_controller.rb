@@ -14,8 +14,13 @@ class UsersController < ApplicationController
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
         redirect to "/signup"
       else
-        @user = User.create(params)
-        redirect to "/login"
+        if @user = User.find_by(username: params[:username])
+          #have a message saying that the specific username is taken
+          erb :'/users/signup'
+        else
+          @user = User.create(params)
+          redirect to "/login"
+        end
       end
     end
   end
