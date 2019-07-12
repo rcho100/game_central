@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
+
   get '/signup' do
     if logged_in?
       redirect to "/games"
@@ -15,8 +19,8 @@ class UsersController < ApplicationController
         redirect to "/signup"
       else
         if @user = User.find_by(username: params[:username])
-          #have a message saying that the specific username is taken
-          erb :'/users/signup'
+          flash[:message] = "That username is taken, unfortunately. Please enter a different username."
+          redirect to "/signup"
         else
           @user = User.create(params)
           redirect to "/login"
