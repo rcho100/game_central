@@ -16,10 +16,11 @@ class UsersController < ApplicationController
       redirect to "/games"
     else
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
+        flash[:fill_in] = "Please fill all fields."
         redirect to "/signup"
       else
         if @user = User.find_by(username: params[:username])
-          flash[:message] = "That username is taken, unfortunately. Please enter a different username."
+          flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
           redirect to "/signup"
         else
           @user = User.create(params)

@@ -1,7 +1,11 @@
 <h3>Sign Up</h3>
 
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
+<% if flash.has?(:taken) %>
+  <%= flash[:taken] %>
+<% end %>
+
+<% if flash.has?(:fill_in) %>
+  <%= flash[:fill_in] %>
 <% end %>
 
 <form action="/signup" method="post">
