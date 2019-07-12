@@ -49,10 +49,10 @@ class GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
     if @game.user == current_user
       @game.update(name: params[:name], genre: params[:genre], system: params[:system], reason: params[:reason])
-      redirect to "/games/#{@game.id}"
     else
-      redirect to "/user/index"
+      flash[:wrong_user] = "You can only delete or edit game posts that have you created."
     end
+    redirect to "/games/#{@game.id}"
   end
 
   delete '/games/:id' do
@@ -61,6 +61,7 @@ class GamesController < ApplicationController
       if @game.user == current_user
         @game.delete
       else
+        flash[:wrong_user] = "You can only delete or edit game posts that have you created."
         redirect to "/games/#{@game.id}"
       end
       redirect to "/games"

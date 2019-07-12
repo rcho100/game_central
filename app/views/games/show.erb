@@ -1,5 +1,9 @@
 <h2><%= @game.name %></h2>
 
+<% if flash.has?(:wrong_user) %>
+  <p><%= flash[:wrong_user] %></p>
+<% end %>
+
 <p>Genre: <%= @game.genre %></p>
 <p>System: <%= @game.system %></p>
 <p><%= @game.reason %></p>
