@@ -44,4 +44,14 @@ class GamesController < ApplicationController
       redirect to "/login"
     end
   end
+
+  patch '/games/:id' do
+    @game = Game.find_by_id(params[:id])
+    if @game.user == current_user
+      @game.update(name: params[:name], genre: params[:genre], system: params[:system], reason: params[:reason])
+      redirect to "/games/#{@game.id}"
+    else
+      redirect to "/users/index"
+    end
+  end
 end
