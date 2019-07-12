@@ -19,7 +19,8 @@ class UsersController < ApplicationController
         flash[:fill_in] = "Please fill all fields."
         redirect to "/signup"
       else
-        if @user = User.find_by(username: params[:username])
+        name = params[:username].downcase
+        if @user = User.find_by(username: name)
           flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
           redirect to "/signup"
         else
@@ -39,7 +40,8 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    @user = User.find_by(username: params[:username])
+    name = params[:username].downcase
+    @user = User.find_by(username: name)
     if @user 
       if @user.authenticate(params[:password])
         session[:user_id] = @user.id 
