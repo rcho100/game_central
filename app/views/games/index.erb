@@ -1,8 +1,10 @@
 <h2>All Games</h2>
 
 <% @games.each do |game| %>
-  <h3><%= game.name %></h3>
+  <h3><a href="/games/<%= game.id %>"><%= game.name %></a></h3>
   <p>System: <%= game.system %> Genre: <%= game.genre %></p>
   <p>Reason for listing:</p>
   <p><%= game.reason %></p>
 <% end %>
+
+<a href="/games/new">New Game</a>
