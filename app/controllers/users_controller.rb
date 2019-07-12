@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/user/index' do
+  get '/user/index' 
     @user = current_user
     erb :'/users/index'
   end
