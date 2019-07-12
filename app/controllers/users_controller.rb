@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
     if @user.authenticate(params[:password])
       session[:user_id] = @user.id 
-      redirect to "/games"
+      redirect to "/user/index"
     else
       flash[:incorrect] = "Incorrect password. Please try again."
       redirect to "/login"
