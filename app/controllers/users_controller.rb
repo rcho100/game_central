@@ -40,12 +40,16 @@ class UsersController < ApplicationController
 
   post '/login' do
     @user = User.find_by(username: params[:username])
-
-    if @user.authenticate(params[:password])
-      session[:user_id] = @user.id 
-      redirect to "/user/index"
+    if @user 
+      if @user.authenticate(params[:password])
+        session[:user_id] = @user.id 
+        redirect to "/user/index"
+      else
+        flash[:incorrect] = "Incorrect password. Please try again."
+        redirect to "/login"
+      end
     else
-      flash[:incorrect] = "Incorrect password. Please try again."
+      flash[:no_username] = "The given username does not match our records. Please try again or sign up if you don't have an account yet."
       redirect to "/login"
     end
   end

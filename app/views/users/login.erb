@@ -4,6 +4,10 @@
   <p><%= flash[:incorrect] %></p>
 <% end %>
 
+<% if flash.has?(:no_username) %>
+  <p><%= flash[:no_username] %></p>
+<% end %>
+
 <form action="/login" method="post">
   <label for="username">Username:</label>
   <input id="username" type="text" name="username">
