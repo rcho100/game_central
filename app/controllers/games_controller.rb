@@ -51,7 +51,7 @@ class GamesController < ApplicationController
       @game.update(name: params[:name], genre: params[:genre], system: params[:system], reason: params[:reason])
       redirect to "/games/#{@game.id}"
     else
-      redirect to "/users/index"
+      redirect to "/user/index"
     end
   end
 
