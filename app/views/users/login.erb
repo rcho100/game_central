@@ -1,8 +1,14 @@
+<h2>Login</h2>
+
+<% if flash.has?(:incorrect) %>
+  <p><%= flash[:incorrect] %></p>
+<% end %>
+
 <form action="/login" method="post">
   <label for="username">Username:</label>
   <input id="username" type="text" name="username">
   <label for="password">Password:</label>
-  <input id="password" type="text" name="password">
+  <input id="password" type="password" name="password">
   
   <input id="submit" type="submit" value="Login">
 </form>

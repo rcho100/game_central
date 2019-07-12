@@ -41,10 +41,11 @@ class UsersController < ApplicationController
   post '/login' do
     @user = User.find_by(username: params[:username])
 
-    if @user && @user.authenticate(params[:password])
+    if @user.authenticate(params[:password])
       session[:user_id] = @user.id 
       redirect to "/games"
     else
+      flash[:incorrect] = "Incorrect password. Please try again."
       redirect to "/login"
     end
   end
