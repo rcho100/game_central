@@ -4,5 +4,5 @@
   <h3><a href="/games/<%= game.id %>"><%= game.name %></a></h3>
   <p>System: <%= game.system %> Genre: <%= game.genre %></p>
   <p>Reason for listing:</p>
-  <p><%= game.reason %></p>
+  <p><%= game.reason %> - <%= current_user.username %></p>
 <% end %>
