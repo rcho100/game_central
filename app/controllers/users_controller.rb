@@ -25,7 +25,7 @@ class UsersController < ApplicationController
             flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
             redirect to "/signup"
           else
-            @user = User.create(params)
+            @user = User.create(username: name, email: params[:email], password: params[:password])
             redirect to "/login"
           end
         else
