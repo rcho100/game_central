@@ -20,12 +20,11 @@ class UsersController < ApplicationController
         redirect to "/signup"
       else
         if !!params[:email].match(/\A[\w.+-]+@\w+\.\w+\z/)
-          name = params[:username].downcase
-          if @user = User.find_by(username: name)
+          if @user = User.find_by(username: params[:username])
             flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
             redirect to "/signup"
           else
-            @user = User.create(username: name, email: params[:email], password: params[:password])
+            @user = User.create(params)
             redirect to "/login"
           end
         else
@@ -45,8 +44,7 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    name = params[:username].downcase
-    @user = User.find_by(username: name)
+    @user = User.find_by(username: params[:username])
     if @user 
       if @user.authenticate(params[:password])
         session[:user_id] = @user.id 
@@ -56,7 +54,7 @@ class UsersController < ApplicationController
         redirect to "/login"
       end
     else
-      flash[:no_username] = "The given username does not match our records. Please try again or sign up if you don't have an account yet."
+      flash[:no_username] = "The given username does not match our records. Please note that the fields are case sensitive and try again or sign up if you don't have an account yet."
       redirect to "/login"
     end
   end
