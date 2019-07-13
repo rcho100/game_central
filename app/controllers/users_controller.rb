@@ -19,13 +19,18 @@ class UsersController < ApplicationController
         flash[:fill_in] = "Please fill all fields."
         redirect to "/signup"
       else
-        name = params[:username].downcase
-        if @user = User.find_by(username: name)
-          flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
-          redirect to "/signup"
+        if !!params[:email].match(/\A[\w.+-]+@\w+\.\w+\z/)
+          name = params[:username].downcase
+          if @user = User.find_by(username: name)
+            flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
+            redirect to "/signup"
+          else
+            @user = User.create(params)
+            redirect to "/login"
+          end
         else
-          @user = User.create(params)
-          redirect to "/login"
+          flash[:valid_email] = "Please enter a valid email address."
+          redirect to "/signup"
         end
       end
     end

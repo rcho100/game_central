@@ -9,6 +9,10 @@
   <p><%= flash[:fill_in] %></p>
 <% end %>
 
+<% if flash.has?(:valid_email) %>
+  <p><%= flash[:valid_email] %></p>
+<% end %>
+
 <form action="/signup" method="post">
   <label for="username">Username:</label>
   <input id="username" type="text" name="username">
