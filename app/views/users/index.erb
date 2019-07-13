@@ -1,8 +1,12 @@
 <h2>Your Games</h2>
-
-<% @user.games.each do |game| %>
-  <h3><a href="/games/<%= game.id %>"><%= game.name %></a></h3>
-  <p>Genre: <%= game.genre %></p>
-  <p>System: <%= game.system %></p>
-  <p><%= game.reason %></p>
+<% if @user.games.empty? %>
+  <p>You do not have any games listed yet!</p>
+  <p>Click the link below to create a new game.</p>
+<% else %>
+  <% @user.games.each do |game| %>
+    <h3><a href="/games/<%= game.id %>"><%= game.name %></a></h3>
+    <p>Genre: <%= game.genre %></p>
+    <p>System: <%= game.system %></p>
+    <p><%= game.reason %></p>
+  <% end %>
 <% end %>
