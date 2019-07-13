@@ -18,7 +18,13 @@
 
       <%= yield %>
 
+      
+      <br>
+      <br>
       <% if logged_in? %>
+      <a href="/games/new">New Game</a>
+      <a href="/user/index">Your Games</a>
+      <a href="/games">All Games</a>
       <a href="/logout">Logout</a> 
       <% end %>
 
