@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
   post '/games' do
     if params[:name] == "" || params[:genre] == "" || params[:system] == "" || params[:reason] == ""
+      flash[:fill_in] = "Please fill all fields."
       redirect to "/games/new"
     else
       @game = Game.create(params)
@@ -48,7 +49,12 @@ class GamesController < ApplicationController
   patch '/games/:id' do
     @game = Game.find_by_id(params[:id])
     if @game.user == current_user
-      @game.update(name: params[:name], genre: params[:genre], system: params[:system], reason: params[:reason])
+      if params[:name] == "" || params[:genre] == "" || params[:system] == "" || params[:reason] == ""
+        flash[:fill_in] = "Please fill all fields."
+        redirect to "/games/#{@game.id}/edit"
+      else
+        @game.update(name: params[:name], genre: params[:genre], system: params[:system], reason: params[:reason])
+      end
     else
       flash[:wrong_user] = "You can only delete or edit game posts that have you created."
     end

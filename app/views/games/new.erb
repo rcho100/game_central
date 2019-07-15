@@ -1,5 +1,9 @@
 <h2>Add a New Game to Your Collection</h2>
 
+<% if flash.has?(:fill_in) %>
+  <p><%= flash[:fill_in] %></p>
+<% end %>
+
 <form action="/games" method="post">
   <label for="name">Name:</label>
   <input id="name" type="text" name="name"><br>

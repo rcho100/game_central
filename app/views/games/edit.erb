@@ -1,5 +1,9 @@
 <h2>Edit this game</h2>
 
+<% if flash.has?(:fill_in) %>
+  <p><%= flash[:fill_in] %></p>
+<% end %>
+
 <form action="/games/<%= @game.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   
