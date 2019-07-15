@@ -25,6 +25,7 @@ class UsersController < ApplicationController
             redirect to "/signup"
           else
             @user = User.create(params)
+            flash[:success_signup] = "Signup Successful! Please login below."
             redirect to "/login"
           end
         else
@@ -48,6 +49,7 @@ class UsersController < ApplicationController
     if @user 
       if @user.authenticate(params[:password])
         session[:user_id] = @user.id 
+        flash[:success_login] = "Login successful"
         redirect to "/user/index"
       else
         flash[:incorrect] = "Incorrect password. Please try again."

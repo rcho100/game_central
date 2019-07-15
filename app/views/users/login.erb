@@ -4,6 +4,10 @@
   <p><%= flash[:incorrect] %></p>
 <% end %>
 
+<% if flash.has?(:success_signup) %>
+  <p><%= flash[:success_signup] %></p>
+<% end %>
+
 <% if flash.has?(:no_username) %>
   <p><%= flash[:no_username] %></p>
 <% end %>
