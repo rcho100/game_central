@@ -23,7 +23,8 @@ class GamesController < ApplicationController
     else
       @game = Game.create(params)
       @user = current_user
-      @user.games << @game
+      @game.user_id = @user.id
+      @game.save
       redirect to "/games/#{@game.id}"
     end
   end
