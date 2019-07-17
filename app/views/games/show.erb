@@ -8,10 +8,12 @@
 <p>System: <%= @game.system %></p>
 <p><%= @game.reason %></p>
 
-<form action="/games/<%= @game.id %>/edit" method="get">
-  <input type="submit" value="Edit">
-</form>
-<form action="/games/<%= @game.id %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete">
-</form>
+<% if current_user.id == @game.user_id %>
+  <form action="/games/<%= @game.id %>/edit" method="get">
+    <input type="submit" value="Edit">
+  </form>
+  <form action="/games/<%= @game.id %>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete">
+  </form>
+<% end %>
