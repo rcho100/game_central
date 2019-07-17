@@ -12,24 +12,24 @@ class UsersController < ApplicationController
   post '/signup' do
     redirect_if_not_logged_in_for_signup
 
-      if params[:username] == "" || params[:email] == "" || params[:password] == ""
-        flash[:fill_in] = "Please fill all fields."
-        redirect to "/signup"
-      else
-        if !!params[:email].match(/\A[\w.+-]+@\w+\.\w+\z/)
-          if @user = User.find_by(username: params[:username])
-            flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
-            redirect to "/signup"
-          else
-            @user = User.create(params)
-            flash[:success_signup] = "Signup Successful! Please login below."
-            redirect to "/login"
-          end
-        else
-          flash[:valid_email] = "Please enter a valid email address."
-          redirect to "/signup"
-        end
-      end
+    if params[:username] == "" || params[:email] == "" || params[:password] == ""
+      flash[:fill_in] = "Please fill all fields."
+      redirect to "/signup"
+    end
+
+    if !params[:email].match(/\A[\w.+-]+@\w+\.\w+\z/)
+      flash[:valid_email] = "Please enter a valid email address."
+      redirect to "/signup"
+    end
+
+    if @user = User.find_by(username: params[:username])
+      flash[:taken] = "That username is taken, unfortunately. Please enter a different username."
+      redirect to "/signup"
+    else
+      @user = User.create(params)
+      flash[:success_signup] = "Signup Successful! Please login below."
+      redirect to "/login"
+    end
   end
 
   get '/login' do
