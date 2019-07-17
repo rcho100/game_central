@@ -4,17 +4,14 @@ class UsersController < ApplicationController
   use Rack::Flash
 
   get '/signup' do
-    if logged_in?
-      redirect to "/games"
-    else
-      erb :'/users/signup'
-    end
+    redirect_if_not_logged_in_for_signup
+
+    erb :'/users/signup'
   end
 
   post '/signup' do
-    if logged_in?
-      redirect to "/games"
-    else
+    redirect_if_not_logged_in_for_signup
+
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
         flash[:fill_in] = "Please fill all fields."
         redirect to "/signup"
@@ -33,7 +30,6 @@ class UsersController < ApplicationController
           redirect to "/signup"
         end
       end
-    end
   end
 
   get '/login' do
