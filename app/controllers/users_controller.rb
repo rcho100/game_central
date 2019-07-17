@@ -37,11 +37,9 @@ class UsersController < ApplicationController
   end
 
   get '/login' do
-    if logged_in?
-      redirect to "/games"
-    else
-      erb :'/users/login'
-    end
+    redirect_if_not_logged_in
+
+    redirect to "/games"
   end
 
   post '/login' do
@@ -62,14 +60,16 @@ class UsersController < ApplicationController
   end
 
   get '/user/index' do
+    redirect_if_not_logged_in
+    
     @user = current_user
     erb :'/users/index'
   end
 
   get '/logout' do
-    if logged_in?
-      session.clear
-    end
+    redirect_if_not_logged_in
+
+    session.clear
     redirect to "/login"
   end
 
