@@ -1,7 +1,12 @@
 <h2>Your Games</h2>
+<% if flash.has?(:success_signup) %>
+  <p><%= flash[:success_signup] %></p>
+<% end %>
+
 <% if flash.has?(:success_login) %>
   <p><%= flash[:success_login] %></p>
 <% end %>
+
 <% if @user.games.empty? %>
   <p>You do not have any games listed yet!</p>
   <p>Click the link below to create a new game.</p>

@@ -27,8 +27,9 @@ class UsersController < ApplicationController
       redirect to "/signup"
     else
       @user = User.create(params)
-      flash[:success_signup] = "Signup Successful! Please login below."
-      redirect to "/login"
+      session[:user_id] = @user.id 
+      flash[:success_signup] = "Signup Successful! You are now logged in."
+      redirect to "/user/index"
     end
   end
 
