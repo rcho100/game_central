@@ -1,19 +1,15 @@
 class GamesController < ApplicationController
   get '/games' do
-    if logged_in?
-      @games = Game.all
-      erb :'/games/index'
-    else
-      redirect to "/login"
-    end
+    redirect_if_not_logged_in
+    
+    @games = Game.all
+    erb :'/games/index'
   end
 
   get '/games/new' do
-    if logged_in?
-      erb :"/games/new"
-    else
-      redirect to "/login"
-    end
+    redirect_if_not_logged_in
+
+    erb :"/games/new"
   end
 
   post '/games' do
@@ -30,26 +26,22 @@ class GamesController < ApplicationController
   end
 
   get '/games/:id' do
-    if logged_in?
-      @game = Game.find_by_id(params[:id])
-      erb :'/games/show'
-    else
-      redirect to "/login"
-    end
+    redirect_if_not_logged_in
+    
+    @game = Game.find_by_id(params[:id])
+    erb :'/games/show'
   end
 
   get '/games/:id/edit' do
-    if logged_in?
-      @game = Game.find_by_id(params[:id])
-      creator_id = @game.user_id
-      if current_user.id != creator_id
-        flash[:wrong_user] = "You can only delete or edit game posts that have you created."
-        redirect to "/games/#{@game.id}"
-      end
-      erb :'/games/edit'
-    else
-      redirect to "/login"
+    redirect_if_not_logged_in
+    
+    @game = Game.find_by_id(params[:id])
+    creator_id = @game.user_id
+    if current_user.id != creator_id
+      flash[:wrong_user] = "You can only delete or edit game posts that have you created."
+      redirect to "/games/#{@game.id}"
     end
+    erb :'/games/edit'
   end
 
   patch '/games/:id' do
@@ -68,17 +60,15 @@ class GamesController < ApplicationController
   end
 
   delete '/games/:id' do
-    if logged_in?
-      @game = Game.find_by_id(params[:id])
-      if @game.user == current_user
-        @game.delete
-      else
-        flash[:wrong_user] = "You can only delete or edit game posts that have you created."
-        redirect to "/games/#{@game.id}"
-      end
-      redirect to "/games"
+    redirect_if_not_logged_in
+
+    @game = Game.find_by_id(params[:id])
+    if @game.user == current_user
+      @game.delete
     else
-      redirect to "/login"
+      flash[:wrong_user] = "You can only delete or edit game posts that have you created."
+      redirect to "/games/#{@game.id}"
     end
+    redirect to "/games"
   end
 end
