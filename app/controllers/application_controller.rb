@@ -27,5 +27,12 @@ class ApplicationController < Sinatra::Base
         redirect to "/login"
       end
     end
+
+    def redirect_if_not_logged_in_for_signup
+      if logged_in?
+        redirect to "/games"
+      end
+    end
   end
+  
 end
