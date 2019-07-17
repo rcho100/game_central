@@ -40,6 +40,11 @@ class GamesController < ApplicationController
   get '/games/:id/edit' do
     if logged_in?
       @game = Game.find_by_id(params[:id])
+      creator_id = @game.user_id
+      if current_user.id != creator_id
+        flash[:wrong_user] = "You can only delete or edit game posts that have you created."
+        redirect to "/games/#{@game.id}"
+      end
       erb :'/games/edit'
     else
       redirect to "/login"
