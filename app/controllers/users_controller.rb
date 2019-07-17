@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   get '/login' do
     redirect_if_logged_into_app
 
-    redirect to "/games"
+    erb :'/users/login'
   end
 
   post '/login' do
